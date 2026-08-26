@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Estudiantes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Formulario para agregar estudiante -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">Agregar Estudiante</h5>
+            </div>
+            <div class="card-body">
+                <form action="/estudiantes/" method="POST">
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código Estudiantil</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="semestre" class="form-label">Semestre Actual</label>
+                        <input type="number" class="form-control" id="semestre" name="semestre" min="1" max="10" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de estudiantes -->
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="card-title mb-0">Directorio de Estudiantes</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Semestre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for estudiante in estudiantes %}
+                        <tr>
+                            <td>{{ estudiante.codigo }}</td>
+                            <td>{{ estudiante.nombre }}</td>
+                            <td>{{ estudiante.semestre }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" disabled>Ver Perfil</button>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">No hay estudiantes registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
